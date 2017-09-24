@@ -19,7 +19,7 @@ public class SmallGhost : MonoBehaviour {
 
 	void LateUpdate() {
 		if(isFollowing) {
-			var followSharpness = Random.Range(0.03f, 0.07f);
+			var followSharpness = Random.Range(0.02f, 0.08f);
 			transform.position += (bigGhost.transform.position - transform.position) * followSharpness;
 		}
 	}
