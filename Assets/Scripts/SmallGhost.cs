@@ -5,10 +5,13 @@ public class SmallGhost : MonoBehaviour {
 	public bool isFollowing = false;
 	// public float followSharpness = 0.05f;
 
+	float followSharpness;
+
 	GameObject bigGhost;
 
 	void Awake () {
 		bigGhost = GameObject.FindGameObjectWithTag("Player");
+		followSharpness = Random.Range(0.02f, 0.08f);
 	}
 	
 	void Update () {
@@ -19,7 +22,6 @@ public class SmallGhost : MonoBehaviour {
 
 	void LateUpdate() {
 		if(isFollowing) {
-			var followSharpness = Random.Range(0.03f, 0.07f);
 			transform.position += (bigGhost.transform.position - transform.position) * followSharpness;
 		}
 	}
