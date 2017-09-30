@@ -38,6 +38,8 @@ public class Human : MonoBehaviour {
 				coll2d.enabled = false;
 				animator.Play("human_dead");
 				Instantiate(small_ghost, new Vector2(transform.position.x, transform.position.y + 0.5f), transform.rotation);
+				var control = GameObject.FindGameObjectWithTag("control");
+				control.GetComponent<GameScript>().numberOfHumans--;
 			}
 		}
 	}

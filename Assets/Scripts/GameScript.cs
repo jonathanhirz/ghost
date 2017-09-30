@@ -1,12 +1,23 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class GameScript : MonoBehaviour {
 
-	GameObject ghost;
+	public GameObject human;
+	public int numberOfHumans = 0;
+	public int maxNumberOfHumans = 5;
 
-	// TODO: add a 'Human spawner' to create enemies around the map
+	GameObject ghost;
+	GameObject[] spawnPoints;
+	GameObject enemyList;
+
+	void Start() {
+		InvokeRepeating("SpawnAHuman", 1.0f, 1.0f);
+	}
+
 	void Awake () {
-		
+		spawnPoints = GameObject.FindGameObjectsWithTag("spawn");
+		enemyList = GameObject.FindGameObjectWithTag("enemies");
 	}
 	
 	void Update () {
@@ -17,5 +28,14 @@ public class GameScript : MonoBehaviour {
 			ghost.SetActive(true);
 			ghost.GetComponent<GhostMovement>().isAlive = true;
 		}
+	}
+
+	void SpawnAHuman() {
+		if(numberOfHumans < maxNumberOfHumans) {
+			var randomSpawn = spawnPoints[Random.Range(0, spawnPoints.Length)];
+			Instantiate(human, randomSpawn.transform.position, randomSpawn.transform.rotation, enemyList.transform);
+			numberOfHumans++;
+		}
+		
 	}
 }

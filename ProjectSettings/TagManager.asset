@@ -8,6 +8,8 @@ TagManager:
   - enemy
   - smallGhost
   - control
+  - spawn
+  - enemies
   layers:
   - Default
   - TransparentFX
