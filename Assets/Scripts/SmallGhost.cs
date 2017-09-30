@@ -11,7 +11,7 @@ public class SmallGhost : MonoBehaviour {
 
 	void Awake () {
 		bigGhost = GameObject.FindGameObjectWithTag("Player");
-		followSharpness = Random.Range(0.02f, 0.08f);
+		followSharpness = Random.Range(0.02f, 0.05f);
 	}
 	
 	void Update () {
