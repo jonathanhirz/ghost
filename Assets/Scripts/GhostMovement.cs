@@ -86,9 +86,9 @@ public class GhostMovement : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D coll) {
 		if (coll.gameObject.tag == "smallGhost") {
-            var smallGhostScript = coll.gameObject.GetComponent<SmallGhost>();
-            smallGhostScript.isFollowing = true;
-        }
+			var smallGhostScript = coll.gameObject.GetComponent<SmallGhost>();
+			smallGhostScript.isFollowing = true;
+		}
 	}
 
 	IEnumerator WaitThenDeactivate() {

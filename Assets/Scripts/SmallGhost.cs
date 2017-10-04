@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class SmallGhost : MonoBehaviour {
 
@@ -6,18 +7,15 @@ public class SmallGhost : MonoBehaviour {
 	// public float followSharpness = 0.05f;
 
 	float followSharpness;
-
+	Collider2D coll2d;
 	GameObject bigGhost;
+	GameObject portal;
 
 	void Awake () {
-		bigGhost = GameObject.FindGameObjectWithTag("Player");
 		followSharpness = Random.Range(0.02f, 0.05f);
-	}
-	
-	void Update () {
-		if(isFollowing) {
-			// transform.position = new Vector2(bigGhost.transform.position.x - 5, bigGhost.transform.position.y);
-		}
+		coll2d = GetComponent<Collider2D>();
+		bigGhost = GameObject.FindGameObjectWithTag("Player");
+		portal = GameObject.FindGameObjectWithTag("portal");
 	}
 
 	void LateUpdate() {
@@ -27,6 +25,36 @@ public class SmallGhost : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D coll) {
-		// Debug.Log(coll);
+		if(coll.gameObject.tag == "portal" && isFollowing) {
+			var control = GameObject.FindGameObjectWithTag("control");
+			control.GetComponent<GameScript>().score++;
+			isFollowing = false;
+			coll2d.enabled = false;
+			DissolveGhost();
+		}
+	}
+
+	void DissolveGhost() {
+		// move toward center of portal
+		StartCoroutine(MoveToPosition(transform, portal.transform.position, 1.0f));
+		// spin around
+		// shrink sprite
+	}
+
+	public IEnumerator MoveToPosition(Transform transform, Vector2 position, float timeToMove) {
+		var currentPos = transform.position;
+		var t = 0f;
+		while(t < 1) {
+			t += Time.deltaTime / timeToMove;
+			transform.position = Vector2.Lerp(currentPos, position, t);
+			transform.Rotate(0, 0, t * Random.Range(10, 15));
+			StartCoroutine(WaitThenDestroy());
+			yield return null;
+		}
+	}
+
+	IEnumerator WaitThenDestroy() {
+		yield return new WaitForSeconds(1.0f);
+		Destroy(gameObject);
 	}
 }

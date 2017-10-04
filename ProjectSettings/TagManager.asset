@@ -10,6 +10,7 @@ TagManager:
   - control
   - spawn
   - enemies
+  - portal
   layers:
   - Default
   - TransparentFX

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class GameScript : MonoBehaviour {
@@ -6,6 +7,8 @@ public class GameScript : MonoBehaviour {
 	public GameObject human;
 	public int numberOfHumans = 0;
 	public int maxNumberOfHumans = 5;
+	public int score = 0;
+	public Text scoreText;
 
 	GameObject ghost;
 	GameObject[] spawnPoints;
@@ -28,6 +31,8 @@ public class GameScript : MonoBehaviour {
 			ghost.SetActive(true);
 			ghost.GetComponent<GhostMovement>().isAlive = true;
 		}
+
+		UpdateScore();
 	}
 
 	void SpawnAHuman() {
@@ -37,5 +42,9 @@ public class GameScript : MonoBehaviour {
 			numberOfHumans++;
 		}
 		
+	}
+
+	void UpdateScore() {
+		scoreText.text = "ghosts collected: " + score.ToString();
 	}
 }

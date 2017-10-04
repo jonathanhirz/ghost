@@ -10,6 +10,7 @@ public class Human : MonoBehaviour {
 	Animator animator;
 	bool isAlive;
 	bool isZombie;
+	float maxSpeed = 5.0f;
 
 	// basic AI: Walk towards ghost, don't hit walls
 	// TODO: more advanced AI: attack ghost
@@ -26,6 +27,7 @@ public class Human : MonoBehaviour {
 		if(ghost != null && isAlive) {
 			Vector2 direction = ghost.transform.position - transform.position;
 			rb2d.AddForce(direction / 2);
+			rb2d.velocity = Vector2.ClampMagnitude(rb2d.velocity, maxSpeed);
 		}
 	}
 
