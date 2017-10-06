@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GhostMovement : MonoBehaviour {
 
@@ -10,6 +12,7 @@ public class GhostMovement : MonoBehaviour {
 	public float bubbleSpeed = 7;
 	public bool isAlive = true;
 	public GameObject[] arrayOfSmallGhosts;
+	public Text gameOverText;
 
 	Rigidbody2D rb2d;
 	SpriteRenderer rend;
@@ -94,6 +97,10 @@ public class GhostMovement : MonoBehaviour {
 	IEnumerator WaitThenDeactivate() {
 		yield return new WaitForSeconds(0.2f);
 		gameObject.SetActive(false);
+		var finalScore = GameObject.FindGameObjectWithTag("control").GetComponent<GameScript>().score;
+		gameOverText.GetComponent<Text>().text = "YOU DIED? \n YOU COLLECTED " + finalScore.ToString() + " SMALL GHOSTS \n PRESS 'R' TO TRY AGAIN";
+		gameOverText.GetComponent<Text>().enabled = true;
+		GameObject.FindGameObjectWithTag("control").GetComponent<GameScript>().playerDead = true;
 	}
 
 }
