@@ -9,7 +9,7 @@ public class Human : MonoBehaviour {
 	Collider2D coll2d;
 	Animator animator;
 	bool isAlive;
-	bool isZombie;
+	// bool isZombie;
 	float maxSpeed = 5.0f;
 
 	// basic AI: Walk towards ghost, don't hit walls
@@ -20,7 +20,7 @@ public class Human : MonoBehaviour {
 		coll2d = GetComponent<Collider2D>();
 		animator = GetComponent<Animator>();
 		isAlive = true;
-		isZombie = false;
+		// isZombie = false;
 	}
 	
 	void Update () {
